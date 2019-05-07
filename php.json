@@ -1,0 +1,78 @@
+{
+	"print varaible": {
+		"prefix": "echo",
+		"body": [
+			"echo '<pre>'; print_r($1); echo '</pre>';",
+			"$2"
+		],
+		"description": "print varaible"
+	},
+	"page template":{
+		"prefix": "page template",
+		"body":[
+			"//CHECK AUTH",
+			"//USE NAMESPACES",
+			"//INCLUDE PROLOG OR HEADER",
+			"//CHECK REQUEST",
+			"//LOG",
+		],
+		"description": "page template"
+	},
+	"Bitrix HighloadBlockTable add": {
+		"prefix": "add",
+		"body": [
+			"Bitrix\\Main\\Loader::includeModule('highloadblock');",
+			"$result = Bitrix\\Highloadblock\\HighloadBlockTable::add([",
+			"\t'NAME' => '${1}',//Entity Name",
+			"\t'TABLE_NAME' => '${2}',//table name",
+			"]);",
+			"if (!$result->isSuccess()) {",
+			"\t$errors = $result->getErrorMessages();",
+			"} else {",
+			"\t$id = $result->getId()",
+			"}",
+
+		],
+		"description": "HighloadBlockTable add"
+	},
+	"Bitrix UserFileds add": {
+		"prefix": "add",
+		"body": [
+			
+		],
+		"description":""
+	},
+	"Bitrix CRM Contact Update": {
+		"prefix": "update",
+		"body":[
+			"CCrmContact::Update($1, ['$2' => $3]);"
+		],
+		"description": "Crm Contact Update"
+
+	},
+	"Bitrix Main Json Response":{
+		"prefix": "response",
+		"body":[
+			"header('Content-Type: application/json');",
+			"echo Web\\Json::encode($result);"
+		],
+		"description": "Main Response json format"
+	},
+	"Bitrix CRM Event Add":{
+		"prefix": "add",
+		"body":[
+			"$res = (new CCrmEvent())->Add(",
+				"[",
+					"'ENTITY_TYPE'=> 'CONTACT',",
+					"'ENTITY_ID' => $id,",
+					"'EVENT_ID' => 'INFO',",
+					"'EVENT_TEXT_1' => 'Глобальный таймер изменен на дату ' .  $globalTime",
+					"'DATE_CREATE' => date('d.m.Y H:i:s'),",
+					"'RESPONSIBLE_ID' => $USER->GetID()",
+				"]",
+			");"
+		],
+		"description":"Crm Event Add"
+	}
+}
+
