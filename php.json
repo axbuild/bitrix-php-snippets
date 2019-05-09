@@ -1,23 +1,4 @@
 {
-	"print varaible": {
-		"prefix": "echo",
-		"body": [
-			"echo '<pre>'; print_r($1); echo '</pre>';",
-			"$2"
-		],
-		"description": "print varaible"
-	},
-	"page template":{
-		"prefix": "page template",
-		"body":[
-			"//CHECK AUTH",
-			"//USE NAMESPACES",
-			"//INCLUDE PROLOG OR HEADER",
-			"//CHECK REQUEST",
-			"//LOG",
-		],
-		"description": "page template"
-	},
 	"Bitrix HighloadBlockTable add": {
 		"prefix": "add",
 		"body": [
@@ -66,13 +47,41 @@
 					"'ENTITY_TYPE'=> 'CONTACT',",
 					"'ENTITY_ID' => $id,",
 					"'EVENT_ID' => 'INFO',",
-					"'EVENT_TEXT_1' => 'Глобальный таймер изменен на дату ' .  $globalTime",
+					"'EVENT_TEXT_1' => $message",
 					"'DATE_CREATE' => date('d.m.Y H:i:s'),",
 					"'RESPONSIBLE_ID' => $USER->GetID()",
 				"]",
 			");"
 		],
 		"description":"Crm Event Add"
+	},
+	"Bitrix CEventLog Add":{
+		"prefix": "add",
+		"body":[
+			"CEventLog::Add(",
+			"\t[",
+			"\t\t'SEVERITY'      => '$1', //WARNING ERROR",
+			"\t\t'AUDIT_TYPE_ID' => '$2',",
+			"\t\t'MODULE_ID'     => '$3',",
+			"\t\t'ITEM_ID'       => '$4',",
+			"\t\t'DESCRIPTION'   => '$5'",
+			"\t]",
+			");"
+		],
+		"description":"CEventLog Add"
+	},
+	"Bitrix CreateWorkFlow Start":{
+		"prefix": "start",
+		"body":[
+			"if(!\\Bitrix\\Main\\Loader::includeModule('bizproc')) throw new SystemException('module \"bizproc\" is not installed');",
+			"$runtime = CBPRuntime::GetRuntime();",
+			"$result = $runtime->CreateWorkflow(",
+			"\tWORKFLOW_TEMPALTE_ID,",
+			"\t[ 'crm', 'CCrmDocumentContact', 'CONTACT_' . $value ],",
+			"\t[]",
+			")->Start();"
+		],
+		"description":"CreateWorkFlow Start"
 	}
 }
 
