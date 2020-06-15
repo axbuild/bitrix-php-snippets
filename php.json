@@ -82,6 +82,11 @@
 			")->Start();"
 		],
 		"description":"CreateWorkFlow Start"
+	},
+	"\\Bitrix\\Main\\Service\\GeoIp\\Manager::getRealIp":{
+		"prefix":"\\Bitrix\\Main\\Service\\GeoIp\\Manager::getRealIp",
+		"body": ["\\Bitrix\\Main\\Service\\GeoIp\\Manager::getRealIp();"],
+		"description":"GeoIp\\Manager\\GetRealIp()"
 	}
 }
 
